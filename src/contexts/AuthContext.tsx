@@ -82,7 +82,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         .from('profiles')
         .select('*')
         .eq('id', userId)
-        .single();
+        .maybeSingle();
 
       if (error) throw error;
 
@@ -92,6 +92,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           username: profile.username,
           avatar: profile.avatar || undefined
         });
+      } else {
+        setUser(null);
       }
     } catch (error) {
       // eslint-disable-next-line no-console
@@ -135,9 +137,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         .from('profiles')
         .select('username')
         .eq('username', username)
-        .single();
+        .maybeSingle();
 
-      if (existingProfile) {
+      if (existingProfile !== null) {
         setIsLoading(false);
         return false;
       }
