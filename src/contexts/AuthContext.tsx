@@ -29,27 +29,28 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    // Safety timeout in case the session request hangs due to network/env issues
+    const loadingSafetyTimeout = setTimeout(() => setIsLoading(false), 5000);
+
     // Get initial session
     const getInitialSession = async () => {
       try {
         const { data: { session }, error } = await supabase.auth.getSession();
 
         if (error) {
+          // eslint-disable-next-line no-console
           console.error('Error fetching session:', error);
-          setIsLoading(false);
-          return;
         }
 
         if (session?.user) {
           await loadUserProfile(session.user.id);
-        } else {
-          setUser(null);
         }
       } catch (err) {
+        // eslint-disable-next-line no-console
         console.error('Unexpected error during session initialization:', err);
-        setUser(null);
       } finally {
         setIsLoading(false);
+        clearTimeout(loadingSafetyTimeout);
       }
     };
 
@@ -64,12 +65,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           setUser(null);
         }
       } catch (err) {
+        // eslint-disable-next-line no-console
         console.error('Error handling auth state change:', err);
-        setUser(null);
       }
     });
 
     return () => {
+      clearTimeout(loadingSafetyTimeout);
       subscription.unsubscribe();
     };
   }, []);
@@ -82,13 +84,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         .eq('id', userId)
         .single();
 
-      if (error) {
-        console.error('Error loading user profile:', error);
-        // If profile doesn't exist, user might need to complete registration
-        setUser(null);
-        setIsLoading(false);
-        return;
-      }
+      if (error) throw error;
 
       if (profile) {
         setUser({
@@ -96,40 +92,43 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           username: profile.username,
           avatar: profile.avatar || undefined
         });
-      } else {
-        setUser(null);
       }
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error('Error loading user profile:', error);
-      setUser(null);
     }
   };
 
   const login = async (email: string, password: string): Promise<boolean> => {
+    setIsLoading(true);
+
     try {
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password
       });
 
-      if (error) {
-        console.error('Login error:', error);
-        return false;
-      }
+      if (error) throw error;
 
       if (data.user) {
         await loadUserProfile(data.user.id);
+        setIsLoading(false);
         return true;
       }
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error('Login error:', error);
+      setIsLoading(false);
       return false;
     }
 
+    setIsLoading(false);
     return false;
   };
 
   const register = async (email: string, password: string, username: string): Promise<boolean> => {
+    setIsLoading(true);
+
     try {
       // Check if username already exists
       const { data: existingProfile } = await supabase
@@ -139,6 +138,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         .single();
 
       if (existingProfile) {
+        setIsLoading(false);
         return false;
       }
 
@@ -148,10 +148,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         password
       });
 
-      if (error) {
-        console.error('Registration error:', error);
-        return false;
-      }
+      if (error) throw error;
 
       if (data.user) {
         // Create profile
@@ -163,19 +160,20 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             avatar: `https://api.dicebear.com/7.x/bottts-neutral/svg?seed=${username}`
           });
 
-        if (profileError) {
-          console.error('Profile creation error:', profileError);
-          return false;
-        }
+        if (profileError) throw profileError;
 
         await loadUserProfile(data.user.id);
+        setIsLoading(false);
         return true;
       }
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error('Registration error:', error);
+      setIsLoading(false);
       return false;
     }
 
+    setIsLoading(false);
     return false;
   };
 

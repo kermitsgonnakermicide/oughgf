@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowRightLeft, Mail, Lock, User } from 'lucide-react';
+import { Heart, Mail, Lock, User, Sparkles } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 
 const AuthForm: React.FC = () => {
@@ -29,7 +29,7 @@ const AuthForm: React.FC = () => {
         }
         success = await register(email, password, username);
         if (!success) {
-          setError('Registration failed. Username may already exist.');
+          setError('User already exists with this email or username');
         }
       }
     } catch (err) {
@@ -42,12 +42,14 @@ const AuthForm: React.FC = () => {
       <div className="w-full max-w-md">
         {/* Logo Section */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-pink-500 to-pink-600 rounded-2xl mb-4 shadow-lg">
-            <ArrowRightLeft className="w-10 h-10 text-white" />
+          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-pink-400 to-pink-500 rounded-full mb-4 shadow-lg">
+            <Heart className="w-10 h-10 text-white" />
           </div>
-          <h1 className="text-3xl font-bold text-gray-800 mb-2">TradeHub</h1>
-          <p className="text-pink-600 font-medium">
-            Your marketplace for trading
+          <h1 className="text-3xl font-bold text-gray-800 mb-2">Kawaii Trade</h1>
+          <p className="text-pink-600 font-medium flex items-center justify-center gap-1">
+            <Sparkles className="w-4 h-4" />
+            Share the cuteness
+            <Sparkles className="w-4 h-4" />
           </p>
         </div>
 

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { ArrowRightLeft } from 'lucide-react';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import AuthForm from './components/auth/AuthForm';
 import Layout from './components/Layout';
@@ -18,13 +17,10 @@ const AppContent: React.FC = () => {
     return (
       <div className="min-h-screen bg-gradient-to-br from-pink-200 via-pink-100 to-purple-200 flex items-center justify-center">
         <div className="text-center">
-          <div className="w-16 h-16 bg-gradient-to-r from-pink-500 to-pink-600 rounded-2xl mx-auto mb-4 flex items-center justify-center">
-            <ArrowRightLeft className="w-8 h-8 text-white animate-pulse" />
+          <div className="w-16 h-16 bg-gradient-to-r from-pink-400 to-pink-500 rounded-full mx-auto mb-4 flex items-center justify-center animate-pulse">
+            <span className="text-2xl">💖</span>
           </div>
-          <p className="text-pink-600 font-medium">Loading TradeHub...</p>
-          <div className="mt-4">
-            <div className="w-8 h-8 border-4 border-pink-200 border-t-pink-500 rounded-full animate-spin mx-auto"></div>
-          </div>
+          <p className="text-pink-600 font-medium">Loading Kawaii Trade...</p>
         </div>
       </div>
     );

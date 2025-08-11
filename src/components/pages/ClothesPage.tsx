@@ -27,11 +27,11 @@ const ClothesPage: React.FC = () => {
     <div className="p-4 space-y-6">
       {/* Header */}
       <div className="text-center">
-        <div className="w-16 h-16 bg-gradient-to-r from-pink-500 to-pink-600 rounded-2xl mx-auto mb-4 flex items-center justify-center">
+        <div className="w-16 h-16 bg-gradient-to-r from-pink-400 to-pink-500 rounded-full mx-auto mb-4 flex items-center justify-center">
           <Shirt className="w-8 h-8 text-white" />
         </div>
-        <h1 className="text-2xl font-bold text-gray-800 mb-2">Clothing Marketplace</h1>
-        <p className="text-gray-600">Trade, rent, or find free clothing items</p>
+        <h1 className="text-2xl font-bold text-gray-800 mb-2">Fashion Exchange</h1>
+        <p className="text-gray-600">Find your perfect style match</p>
       </div>
 
       {/* Search and Filter */}
@@ -84,14 +84,12 @@ const ClothesPage: React.FC = () => {
         </div>
       ) : (
         <div className="text-center py-12">
-          <div className="w-16 h-16 bg-gray-100 rounded-2xl mx-auto mb-4 flex items-center justify-center">
-            <Shirt className="w-8 h-8 text-gray-400" />
-          </div>
+          <div className="text-6xl mb-4">👗</div>
           <h3 className="text-lg font-semibold text-gray-800 mb-2">No clothes found</h3>
           <p className="text-gray-600">
             {searchTerm || filterType !== 'all' 
               ? 'Try adjusting your search or filters'
-              : 'Be the first to list clothing!'
+              : 'Be the first to share your style!'
             }
           </p>
         </div>

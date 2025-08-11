@@ -113,11 +113,9 @@ const ProfilePage: React.FC = () => {
           </div>
         ) : (
           <div className="bg-white rounded-2xl p-8 shadow-lg border border-pink-100 text-center">
-            <div className="w-12 h-12 bg-gray-100 rounded-2xl mx-auto mb-3 flex items-center justify-center">
-              <Package className="w-6 h-6 text-gray-400" />
-            </div>
+            <div className="text-4xl mb-3">📦</div>
             <h3 className="font-semibold text-gray-800 mb-2">No listings yet</h3>
-            <p className="text-gray-600 text-sm">Start listing your items to trade!</p>
+            <p className="text-gray-600 text-sm">Start sharing your items with the community!</p>
           </div>
         )}
       </div>
@@ -140,11 +138,9 @@ const ProfilePage: React.FC = () => {
 
       {/* App Info */}
       <div className="bg-gradient-to-r from-pink-100 to-purple-100 rounded-2xl p-6 border border-pink-200 text-center">
-        <div className="w-8 h-8 bg-pink-500 rounded-lg mx-auto mb-2 flex items-center justify-center">
-          <ArrowRightLeft className="w-4 h-4 text-white" />
-        </div>
-        <p className="text-gray-700 text-sm font-medium">TradeHub v1.0</p>
-        <p className="text-gray-600 text-xs mt-1">Your trusted trading platform</p>
+        <div className="text-3xl mb-2">💖</div>
+        <p className="text-gray-700 text-sm font-medium">Kawaii Trade v1.0</p>
+        <p className="text-gray-600 text-xs mt-1">Made with love for the community</p>
       </div>
     </div>
   );
