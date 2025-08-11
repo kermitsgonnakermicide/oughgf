@@ -29,27 +29,51 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    // Safety timeout in case the session request hangs due to network/env issues
+    const loadingSafetyTimeout = setTimeout(() => setIsLoading(false), 5000);
+
     // Get initial session
     const getInitialSession = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (session?.user) {
-        await loadUserProfile(session.user.id);
+      try {
+        const { data: { session }, error } = await supabase.auth.getSession();
+
+        if (error) {
+          // eslint-disable-next-line no-console
+          console.error('Error fetching session:', error);
+        }
+
+        if (session?.user) {
+          await loadUserProfile(session.user.id);
+        }
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.error('Unexpected error during session initialization:', err);
+      } finally {
+        setIsLoading(false);
+        clearTimeout(loadingSafetyTimeout);
       }
-      setIsLoading(false);
     };
 
-    getInitialSession();
+    void getInitialSession();
 
     // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
-      if (session?.user) {
-        await loadUserProfile(session.user.id);
-      } else {
-        setUser(null);
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
+      try {
+        if (session?.user) {
+          await loadUserProfile(session.user.id);
+        } else {
+          setUser(null);
+        }
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.error('Error handling auth state change:', err);
       }
     });
 
-    return () => subscription.unsubscribe();
+    return () => {
+      clearTimeout(loadingSafetyTimeout);
+      subscription.unsubscribe();
+    };
   }, []);
 
   const loadUserProfile = async (userId: string) => {
@@ -70,6 +94,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         });
       }
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error('Error loading user profile:', error);
     }
   };
@@ -91,6 +116,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         return true;
       }
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error('Login error:', error);
       setIsLoading(false);
       return false;
@@ -141,6 +167,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         return true;
       }
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error('Registration error:', error);
       setIsLoading(false);
       return false;
