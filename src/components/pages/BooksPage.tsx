@@ -27,11 +27,11 @@ const BooksPage: React.FC = () => {
     <div className="p-4 space-y-6">
       {/* Header */}
       <div className="text-center">
-        <div className="w-16 h-16 bg-gradient-to-r from-blue-400 to-blue-500 rounded-full mx-auto mb-4 flex items-center justify-center">
+        <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-blue-600 rounded-2xl mx-auto mb-4 flex items-center justify-center">
           <Book className="w-8 h-8 text-white" />
         </div>
-        <h1 className="text-2xl font-bold text-gray-800 mb-2">Book Library</h1>
-        <p className="text-gray-600">Discover your next favorite read</p>
+        <h1 className="text-2xl font-bold text-gray-800 mb-2">Book Marketplace</h1>
+        <p className="text-gray-600">Find books to trade, rent, or get for free</p>
       </div>
 
       {/* Search and Filter */}
@@ -84,12 +84,14 @@ const BooksPage: React.FC = () => {
         </div>
       ) : (
         <div className="text-center py-12">
-          <div className="text-6xl mb-4">📚</div>
+          <div className="w-16 h-16 bg-gray-100 rounded-2xl mx-auto mb-4 flex items-center justify-center">
+            <Book className="w-8 h-8 text-gray-400" />
+          </div>
           <h3 className="text-lg font-semibold text-gray-800 mb-2">No books found</h3>
           <p className="text-gray-600">
             {searchTerm || filterType !== 'all' 
               ? 'Try adjusting your search or filters'
-              : 'Be the first to share a book!'
+              : 'Be the first to list a book!'
             }
           </p>
         </div>

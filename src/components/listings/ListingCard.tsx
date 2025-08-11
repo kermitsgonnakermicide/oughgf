@@ -41,7 +41,7 @@ const ListingCard: React.FC<ListingCardProps> = ({ listing, onMessage, onTrade }
   return (
     <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-pink-100">
       {/* Image */}
-      <div className="h-48 bg-gradient-to-br from-pink-100 to-purple-100 flex items-center justify-center">
+      <div className="h-48 bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center">
         {listing.images.length > 0 ? (
           <img
             src={listing.images[0]}
@@ -49,8 +49,12 @@ const ListingCard: React.FC<ListingCardProps> = ({ listing, onMessage, onTrade }
             className="w-full h-full object-cover"
           />
         ) : (
-          <div className="text-pink-300 text-6xl">
-            {listing.type === 'book' ? '📚' : '👗'}
+          <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center shadow-sm">
+            {listing.type === 'book' ? (
+              <Book className="w-8 h-8 text-gray-400" />
+            ) : (
+              <Shirt className="w-8 h-8 text-gray-400" />
+            )}
           </div>
         )}
       </div>

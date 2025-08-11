@@ -33,10 +33,10 @@ const MessagesPage: React.FC = () => {
     <div className="p-4 space-y-6">
       {/* Header */}
       <div className="text-center">
-        <div className="w-16 h-16 bg-gradient-to-r from-purple-400 to-purple-500 rounded-full mx-auto mb-4 flex items-center justify-center">
+        <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-purple-600 rounded-2xl mx-auto mb-4 flex items-center justify-center">
           <MessageCircle className="w-8 h-8 text-white" />
         </div>
-        <h1 className="text-2xl font-bold text-gray-800 mb-2">Messages & Trades</h1>
+        <h1 className="text-2xl font-bold text-gray-800 mb-2">Trade Center</h1>
         <p className="text-gray-600">Manage your trade proposals</p>
       </div>
 
@@ -85,7 +85,9 @@ const MessagesPage: React.FC = () => {
           </div>
         ) : (
           <div className="bg-white rounded-2xl p-8 shadow-lg border border-pink-100 text-center">
-            <div className="text-4xl mb-3">📫</div>
+            <div className="w-12 h-12 bg-gray-100 rounded-2xl mx-auto mb-3 flex items-center justify-center">
+              <MessageCircle className="w-6 h-6 text-gray-400" />
+            </div>
             <h3 className="font-semibold text-gray-800 mb-2">No incoming proposals</h3>
             <p className="text-gray-600 text-sm">Trade proposals from other users will appear here</p>
           </div>
@@ -126,7 +128,9 @@ const MessagesPage: React.FC = () => {
           </div>
         ) : (
           <div className="bg-white rounded-2xl p-8 shadow-lg border border-pink-100 text-center">
-            <div className="text-4xl mb-3">💌</div>
+            <div className="w-12 h-12 bg-gray-100 rounded-2xl mx-auto mb-3 flex items-center justify-center">
+              <ArrowRightLeft className="w-6 h-6 text-gray-400" />
+            </div>
             <h3 className="font-semibold text-gray-800 mb-2">No outgoing proposals</h3>
             <p className="text-gray-600 text-sm">Your trade proposals will appear here</p>
           </div>
@@ -135,21 +139,21 @@ const MessagesPage: React.FC = () => {
 
       {/* Tips */}
       <div className="bg-gradient-to-r from-pink-100 to-purple-100 rounded-2xl p-6 border border-pink-200">
-        <h3 className="font-bold text-gray-800 mb-3 flex items-center gap-2">
-          💡 Trading Tips
+        <h3 className="font-bold text-gray-800 mb-3">
+          Trading Tips
         </h3>
         <ul className="space-y-2 text-gray-700 text-sm">
           <li className="flex items-start gap-2">
             <span className="text-pink-500 mt-0.5">•</span>
-            <span>Be clear and friendly in your trade proposals</span>
+            <span>Be clear and professional in your trade proposals</span>
           </li>
           <li className="flex items-start gap-2">
             <span className="text-pink-500 mt-0.5">•</span>
-            <span>Include photos of your items to build trust</span>
+            <span>Include detailed photos and descriptions of your items</span>
           </li>
           <li className="flex items-start gap-2">
             <span className="text-pink-500 mt-0.5">•</span>
-            <span>Consider meeting in safe, public places for exchanges</span>
+            <span>Always meet in safe, public places for exchanges</span>
           </li>
         </ul>
       </div>

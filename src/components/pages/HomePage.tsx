@@ -1,5 +1,5 @@
 import React from 'react';
-import { Heart, Sparkles, Book, Shirt, ArrowRightLeft, Gift, Clock } from 'lucide-react';
+import { ArrowRightLeft, Book, Shirt, Plus, Gift, Clock, TrendingUp } from 'lucide-react';
 import { useListings } from '../../hooks/useListings';
 import { useAuth } from '../../contexts/AuthContext';
 
@@ -29,15 +29,14 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
         <div className="flex items-center justify-between">
           <div>
             <h2 className="text-2xl font-bold mb-2">
-              Welcome back, {user?.username}! 
+              Welcome back, {user?.username}!
             </h2>
-            <p className="text-pink-100 flex items-center gap-1">
-              <Sparkles className="w-4 h-4" />
-              Ready to share the cuteness?
-              <Sparkles className="w-4 h-4" />
+            <p className="text-pink-100 flex items-center gap-2">
+              <TrendingUp className="w-4 h-4" />
+              Ready to start trading?
             </p>
           </div>
-          <div className="text-6xl">💖</div>
+          <div className="text-6xl">📈</div>
         </div>
       </div>
 
@@ -116,10 +115,10 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
             className="bg-white p-4 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-pink-100 hover:border-pink-300 group text-left"
           >
             <div className="w-12 h-12 bg-gradient-to-r from-green-400 to-green-500 rounded-full mb-3 flex items-center justify-center group-hover:scale-110 transition-transform">
-              <Heart className="w-6 h-6 text-white" />
+              <Plus className="w-6 h-6 text-white" />
             </div>
             <h4 className="font-semibold text-gray-800 mb-1">Create Listing</h4>
-            <p className="text-gray-600 text-xs">Share your items</p>
+            <p className="text-gray-600 text-xs">List your items</p>
           </button>
 
           <button
@@ -129,7 +128,7 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
             <div className="w-12 h-12 bg-gradient-to-r from-purple-400 to-purple-500 rounded-full mb-3 flex items-center justify-center group-hover:scale-110 transition-transform">
               <ArrowRightLeft className="w-6 h-6 text-white" />
             </div>
-            <h4 className="font-semibold text-gray-800 mb-1">My Trades</h4>
+            <h4 className="font-semibold text-gray-800 mb-1">Trade Center</h4>
             <p className="text-gray-600 text-xs">Check proposals</p>
           </button>
         </div>
@@ -144,10 +143,14 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
             {recentListings.map((listing) => (
               <div
                 key={listing.id}
-                className="bg-white rounded-2xl p-4 shadow-lg border border-pink-100 flex items-center space-x-4"
+                className="bg-white rounded-xl p-4 shadow-md border border-pink-100 flex items-center space-x-4"
               >
-                <div className="w-12 h-12 bg-gradient-to-br from-pink-100 to-purple-100 rounded-xl flex items-center justify-center text-2xl">
-                  {listing.type === 'book' ? '📚' : '👗'}
+                <div className="w-12 h-12 bg-gradient-to-br from-pink-100 to-purple-100 rounded-lg flex items-center justify-center">
+                  {listing.type === 'book' ? (
+                    <Book className="w-6 h-6 text-pink-600" />
+                  ) : (
+                    <Shirt className="w-6 h-6 text-pink-600" />
+                  )}
                 </div>
                 <div className="flex-1">
                   <h4 className="font-semibold text-gray-800">{listing.title}</h4>
@@ -167,11 +170,13 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
       )}
 
       {/* Community Message */}
-      <div className="bg-white rounded-2xl p-6 shadow-lg border border-pink-100 text-center">
-        <div className="text-4xl mb-3">🌸</div>
-        <h3 className="font-bold text-gray-800 mb-2">Join our cute community!</h3>
+      <div className="bg-white rounded-xl p-6 shadow-md border border-pink-100 text-center">
+        <div className="w-12 h-12 bg-gradient-to-r from-pink-400 to-pink-500 rounded-lg mx-auto mb-3 flex items-center justify-center">
+          <ArrowRightLeft className="w-6 h-6 text-white" />
+        </div>
+        <h3 className="font-bold text-gray-800 mb-2">Join our trading community!</h3>
         <p className="text-gray-600 text-sm">
-          Share your favorite items, discover new treasures, and make friends along the way.
+          List your items, discover great deals, and connect with other traders.
         </p>
       </div>
     </div>

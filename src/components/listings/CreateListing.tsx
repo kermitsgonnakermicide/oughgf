@@ -126,14 +126,14 @@ const CreateListing: React.FC<CreateListingProps> = ({ onBack }) => {
                 setListingType('book');
                 setStep('form');
               }}
-              className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-pink-100 hover:border-pink-300 group"
+              className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 border border-pink-100 hover:border-pink-300 group"
             >
               <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-r from-blue-400 to-blue-500 rounded-full mx-auto mb-4 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-blue-600 rounded-2xl mx-auto mb-4 flex items-center justify-center group-hover:scale-105 transition-transform">
                   <Book className="w-8 h-8 text-white" />
                 </div>
                 <h3 className="text-lg font-semibold text-gray-800 mb-2">Books</h3>
-                <p className="text-gray-600 text-sm">Share your favorite reads with others</p>
+                <p className="text-gray-600 text-sm">List books for trading or rental</p>
               </div>
             </button>
 
@@ -142,14 +142,14 @@ const CreateListing: React.FC<CreateListingProps> = ({ onBack }) => {
                 setListingType('clothing');
                 setStep('form');
               }}
-              className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-pink-100 hover:border-pink-300 group"
+              className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 border border-pink-100 hover:border-pink-300 group"
             >
               <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-r from-pink-400 to-pink-500 rounded-full mx-auto mb-4 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <div className="w-16 h-16 bg-gradient-to-r from-pink-500 to-pink-600 rounded-2xl mx-auto mb-4 flex items-center justify-center group-hover:scale-105 transition-transform">
                   <Shirt className="w-8 h-8 text-white" />
                 </div>
                 <h3 className="text-lg font-semibold text-gray-800 mb-2">Clothing</h3>
-                <p className="text-gray-600 text-sm">Share your stylish pieces with the community</p>
+                <p className="text-gray-600 text-sm">List clothing items for the marketplace</p>
               </div>
             </button>
           </div>

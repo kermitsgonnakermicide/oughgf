@@ -1,5 +1,5 @@
 import React from 'react';
-import { Heart, Book, Shirt, Plus, MessageCircle, User } from 'lucide-react';
+import { ArrowRightLeft, Book, Shirt, Plus, MessageCircle, User } from 'lucide-react';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -9,7 +9,7 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children, currentPage, onNavigate }) => {
   const navItems = [
-    { id: 'home', icon: Heart, label: 'Home' },
+    { id: 'home', icon: ArrowRightLeft, label: 'Home' },
     { id: 'books', icon: Book, label: 'Books' },
     { id: 'clothes', icon: Shirt, label: 'Clothes' },
     { id: 'create', icon: Plus, label: 'Create' },
@@ -23,10 +23,10 @@ const Layout: React.FC<LayoutProps> = ({ children, currentPage, onNavigate }) =>
       <header className="bg-gradient-to-r from-pink-400 to-pink-500 text-white p-4 shadow-lg">
         <div className="flex items-center justify-center">
           <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center">
-              <Heart className="w-5 h-5 text-pink-500" />
+            <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
+              <ArrowRightLeft className="w-5 h-5 text-pink-500" />
             </div>
-            <h1 className="text-xl font-bold tracking-wide">Kawaii Trade</h1>
+            <h1 className="text-xl font-bold tracking-wide">TradeHub</h1>
           </div>
         </div>
       </header>
