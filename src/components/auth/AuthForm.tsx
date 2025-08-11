@@ -29,7 +29,7 @@ const AuthForm: React.FC = () => {
         }
         success = await register(email, password, username);
         if (!success) {
-          setError('User already exists with this email or username');
+          setError('Registration failed. Username may already exist.');
         }
       }
     } catch (err) {
