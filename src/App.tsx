@@ -18,9 +18,9 @@ const AppContent: React.FC = () => {
       <div className="min-h-screen bg-gradient-to-br from-pink-200 via-pink-100 to-purple-200 flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 bg-gradient-to-r from-pink-400 to-pink-500 rounded-full mx-auto mb-4 flex items-center justify-center animate-pulse">
-            <span className="text-2xl">💖</span>
+            <span className="text-2xl">🔄</span>
           </div>
-          <p className="text-pink-600 font-medium">Loading Kawaii Trade...</p>
+          <p className="text-pink-600 font-medium">Loading Trade Hub...</p>
         </div>
       </div>
     );

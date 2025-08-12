@@ -33,11 +33,11 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
             </h2>
             <p className="text-pink-100 flex items-center gap-1">
               <Sparkles className="w-4 h-4" />
-              Ready to share the cuteness?
+              Ready to start trading?
               <Sparkles className="w-4 h-4" />
             </p>
           </div>
-          <div className="text-6xl">💖</div>
+          <div className="text-6xl">🛍️</div>
         </div>
       </div>
 
@@ -168,10 +168,10 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
 
       {/* Community Message */}
       <div className="bg-white rounded-2xl p-6 shadow-lg border border-pink-100 text-center">
-        <div className="text-4xl mb-3">🌸</div>
-        <h3 className="font-bold text-gray-800 mb-2">Join our cute community!</h3>
+        <div className="text-4xl mb-3">🤝</div>
+        <h3 className="font-bold text-gray-800 mb-2">Join our trading community!</h3>
         <p className="text-gray-600 text-sm">
-          Share your favorite items, discover new treasures, and make friends along the way.
+          Share your items, discover new treasures, and connect with fellow traders.
         </p>
       </div>
     </div>
