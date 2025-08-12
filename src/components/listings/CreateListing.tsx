@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Book, Shirt, ArrowLeft, Plus, X } from 'lucide-react';
 import { useListings } from '../../hooks/useListings';
 import { useAuth } from '../../contexts/AuthContext';
+import { BookListing, ClothingListing } from '../../types';
 
 interface CreateListingProps {
   onBack: () => void;
@@ -37,19 +38,6 @@ const CreateListing: React.FC<CreateListingProps> = ({ onBack }) => {
     e.preventDefault();
     if (!user) return;
 
-    const baseData = {
-      userId: user.id,
-      username: user.username,
-      type: listingType,
-      title: formData.title,
-      condition: formData.condition,
-      color: formData.color,
-      description: formData.description,
-      listingType: formData.listingType,
-      price: formData.price ? parseFloat(formData.price) : undefined,
-      images: []
-    };
-
     if (listingType === 'book') {
       addListing({
         type: 'book',
@@ -63,7 +51,7 @@ const CreateListing: React.FC<CreateListingProps> = ({ onBack }) => {
         author: formData.author,
         genre: formData.genre,
         isbn: formData.isbn
-      } as BookListing);
+      });
     } else {
       addListing({
         type: 'clothing',
@@ -78,7 +66,7 @@ const CreateListing: React.FC<CreateListingProps> = ({ onBack }) => {
         size: formData.size,
         category: formData.category,
         material: formData.material
-      } as ClothingListing);
+      });
     }
 
     // Reset form and go back

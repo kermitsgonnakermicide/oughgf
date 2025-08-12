@@ -78,6 +78,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const loadUserProfile = async (userId: string) => {
     try {
+      // Get user data from auth
+      const { data: { user: authUser } } = await supabase.auth.getUser();
+      
       const { data: profile, error } = await supabase
         .from('profiles')
         .select('*')
@@ -90,6 +93,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         setUser({
           id: profile.id,
           username: profile.username,
+          email: authUser?.email,
           avatar: profile.avatar || undefined
         });
       }
