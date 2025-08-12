@@ -2,6 +2,7 @@ import React from 'react';
 import { User, LogOut, Heart, Package, Star, Settings } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import { useListings } from '../../hooks/useListings';
+import { BookListing, ClothingListing } from '../../types';
 
 const ProfilePage: React.FC = () => {
   const { user, logout } = useAuth();
@@ -87,7 +88,7 @@ const ProfilePage: React.FC = () => {
         
         {userListings.length > 0 ? (
           <div className="space-y-3">
-            {userListings.slice(-5).map(listing => (
+            {userListings.slice(-5).reverse().map(listing => (
               <div
                 key={listing.id}
                 className="bg-white rounded-2xl p-4 shadow-lg border border-pink-100 flex items-center space-x-4"
@@ -98,7 +99,10 @@ const ProfilePage: React.FC = () => {
                 <div className="flex-1">
                   <h3 className="font-semibold text-gray-800">{listing.title}</h3>
                   <p className="text-gray-600 text-sm">
-                    {listing.type === 'book' ? (listing as any).author : (listing as any).brand}
+                    {listing.type === 'book' ? 
+                      (listing as BookListing).author : 
+                      (listing as ClothingListing).brand
+                    }
                   </p>
                 </div>
                 <div className={`px-2 py-1 rounded-full text-xs font-medium ${

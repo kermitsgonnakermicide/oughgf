@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { Book, Shirt, ArrowLeft, Plus, X } from 'lucide-react';
+import { Book, Shirt, ArrowLeft, Plus } from 'lucide-react';
 import { useListings } from '../../hooks/useListings';
 import { useAuth } from '../../contexts/AuthContext';
-import { BookListing, ClothingListing } from '../../types';
 
 interface CreateListingProps {
   onBack: () => void;
@@ -11,6 +10,7 @@ interface CreateListingProps {
 const CreateListing: React.FC<CreateListingProps> = ({ onBack }) => {
   const [step, setStep] = useState<'type' | 'form'>('type');
   const [listingType, setListingType] = useState<'book' | 'clothing'>('book');
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     title: '',
     author: '',
@@ -34,12 +34,14 @@ const CreateListing: React.FC<CreateListingProps> = ({ onBack }) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!user) return;
 
+    setIsLoading(true);
+
     if (listingType === 'book') {
-      addListing({
+      await addListing({
         type: 'book',
         title: formData.title,
         condition: formData.condition,
@@ -53,7 +55,7 @@ const CreateListing: React.FC<CreateListingProps> = ({ onBack }) => {
         isbn: formData.isbn
       });
     } else {
-      addListing({
+      await addListing({
         type: 'clothing',
         title: formData.title,
         condition: formData.condition,
@@ -87,6 +89,7 @@ const CreateListing: React.FC<CreateListingProps> = ({ onBack }) => {
     });
     setStep('type');
     onBack();
+    setIsLoading(false);
   };
 
   if (step === 'type') {
@@ -395,10 +398,20 @@ const CreateListing: React.FC<CreateListingProps> = ({ onBack }) => {
         {/* Submit Button */}
         <button
           type="submit"
+          disabled={isLoading}
           className="w-full bg-gradient-to-r from-pink-400 to-pink-500 text-white py-4 rounded-2xl font-medium hover:from-pink-500 hover:to-pink-600 transition-all duration-200 shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
         >
-          <Plus className="w-5 h-5" />
-          Create Listing
+          {isLoading ? (
+            <>
+              <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+              Creating...
+            </>
+          ) : (
+            <>
+              <Plus className="w-5 h-5" />
+              Create Listing
+            </>
+          )}
         </button>
       </form>
     </div>

@@ -89,6 +89,7 @@ export const useListings = () => {
       await loadListings();
     } catch (error) {
       console.error('Error adding listing:', error);
+      throw error;
     }
   };
 

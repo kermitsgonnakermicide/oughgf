@@ -15,6 +15,7 @@ const MessageModal: React.FC<MessageModalProps> = ({ listing, onClose }) => {
   const [showTradeModal, setShowTradeModal] = useState(false);
   const [selectedListingForTrade, setSelectedListingForTrade] = useState<string>('');
   const [tradeMessage, setTradeMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const { sendMessage, sendTradeProposal, getMessagesForListing } = useMessages();
   const { getUserListings } = useListings();
@@ -23,22 +24,27 @@ const MessageModal: React.FC<MessageModalProps> = ({ listing, onClose }) => {
   const userListings = user ? getUserListings(user.id) : [];
   const messages = getMessagesForListing(listing.id);
 
-  const handleSendMessage = (e: React.FormEvent) => {
+  const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!message.trim() || !user) return;
 
-    sendMessage(listing.userId, listing.id, message.trim());
-    setMessage('');
+    setIsLoading(true);
+    const success = await sendMessage(listing.userId, listing.id, message.trim());
+    if (success) {
+      setMessage('');
+    }
+    setIsLoading(false);
   };
 
-  const handleSendTradeProposal = (e: React.FormEvent) => {
+  const handleSendTradeProposal = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedListingForTrade || !user) return;
 
     const offeredListing = userListings.find(l => l.id === selectedListingForTrade);
     if (!offeredListing) return;
 
-    sendTradeProposal(
+    setIsLoading(true);
+    const success = await sendTradeProposal(
       listing.userId,
       listing.username,
       listing.id,
@@ -46,10 +52,13 @@ const MessageModal: React.FC<MessageModalProps> = ({ listing, onClose }) => {
       tradeMessage || `I'd like to trade my "${offeredListing.title}" for your "${listing.title}"`
     );
 
-    setShowTradeModal(false);
-    setSelectedListingForTrade('');
-    setTradeMessage('');
-    onClose();
+    if (success) {
+      setShowTradeModal(false);
+      setSelectedListingForTrade('');
+      setTradeMessage('');
+      onClose();
+    }
+    setIsLoading(false);
   };
 
   return (
@@ -126,10 +135,14 @@ const MessageModal: React.FC<MessageModalProps> = ({ listing, onClose }) => {
             />
             <button
               type="submit"
-              disabled={!message.trim()}
+              disabled={!message.trim() || isLoading}
               className="bg-pink-500 text-white p-3 rounded-xl hover:bg-pink-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
-              <Send className="w-5 h-5" />
+              {isLoading ? (
+                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+              ) : (
+                <Send className="w-5 h-5" />
+              )}
             </button>
           </form>
         </div>
@@ -186,10 +199,10 @@ const MessageModal: React.FC<MessageModalProps> = ({ listing, onClose }) => {
 
               <button
                 type="submit"
-                disabled={!selectedListingForTrade}
+                disabled={!selectedListingForTrade || isLoading}
                 className="w-full bg-blue-500 text-white py-3 rounded-xl font-medium hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
-                Send Trade Proposal
+                {isLoading ? 'Sending...' : 'Send Trade Proposal'}
               </button>
             </form>
           </div>

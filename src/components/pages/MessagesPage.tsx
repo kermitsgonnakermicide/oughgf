@@ -2,6 +2,7 @@ import React from 'react';
 import { MessageCircle, ArrowRightLeft, Clock, Check, X } from 'lucide-react';
 import { useMessages } from '../../hooks/useMessages';
 import { useAuth } from '../../contexts/AuthContext';
+import { supabase } from '../../lib/supabase';
 
 const MessagesPage: React.FC = () => {
   const { getTradeProposalsForUser } = useMessages();
@@ -11,6 +12,21 @@ const MessagesPage: React.FC = () => {
   const incomingProposals = tradeProposals.filter(p => p.toUserId === user?.id);
   const outgoingProposals = tradeProposals.filter(p => p.fromUserId === user?.id);
 
+  const handleProposalAction = async (proposalId: string, status: 'accepted' | 'declined') => {
+    try {
+      const { error } = await supabase
+        .from('trade_proposals')
+        .update({ status })
+        .eq('id', proposalId);
+
+      if (error) throw error;
+      
+      // Reload the page to show updated status
+      window.location.reload();
+    } catch (error) {
+      console.error('Error updating proposal:', error);
+    }
+  };
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'pending': return 'text-yellow-600 bg-yellow-100';
@@ -73,9 +89,11 @@ const MessagesPage: React.FC = () => {
                 {proposal.status === 'pending' && (
                   <div className="flex gap-2">
                     <button className="flex-1 bg-green-100 text-green-600 py-2 px-4 rounded-xl font-medium hover:bg-green-200 transition-colors">
+                      onClick={() => handleProposalAction(proposal.id, 'accepted')}
                       Accept
                     </button>
                     <button className="flex-1 bg-red-100 text-red-600 py-2 px-4 rounded-xl font-medium hover:bg-red-200 transition-colors">
+                      onClick={() => handleProposalAction(proposal.id, 'declined')}
                       Decline
                     </button>
                   </div>
