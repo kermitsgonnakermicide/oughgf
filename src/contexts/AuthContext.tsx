@@ -84,14 +84,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         .eq('id', userId)
         .single();
 
-      if (error) {
-        // Handle the case where no profile is found (PGRST116 error)
-        if (error.code === 'PGRST116') {
-          setUser(null);
-          return;
-        }
-        throw error;
-      }
+      if (error) throw error;
 
       if (profile) {
         setUser({
@@ -103,7 +96,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error('Error loading user profile:', error);
-      setUser(null);
     }
   };
 
