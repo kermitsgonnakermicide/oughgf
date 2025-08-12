@@ -18,7 +18,7 @@ export const useListings = () => {
         .from('listings')
         .select(`
           *,
-          profiles!listings_user_id_fkey (
+          profiles (
             username
           )
         `)
@@ -30,7 +30,7 @@ export const useListings = () => {
         id: listing.id,
         type: listing.type as 'book' | 'clothing',
         userId: listing.user_id,
-        username: listing.profiles?.username || 'Unknown',
+        username: listing.profiles?.username || 'Unknown User',
         title: listing.title,
         author: listing.author || '',
         brand: listing.brand || '',
@@ -51,6 +51,8 @@ export const useListings = () => {
       setListings(formattedListings);
     } catch (error) {
       console.error('Error loading listings:', error);
+      // Set empty array on error to prevent undefined state
+      setListings([]);
     } finally {
       setLoading(false);
     }
