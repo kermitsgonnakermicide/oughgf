@@ -16,7 +16,12 @@ export const useListings = () => {
     try {
       const { data, error } = await supabase
         .from('listings')
-        .select('*, profiles(username)')
+        .select(`
+          *,
+          profiles!listings_user_id_fkey (
+            username
+          )
+        `)
         .order('created_at', { ascending: false });
 
       if (error) throw error;
@@ -25,7 +30,7 @@ export const useListings = () => {
         id: listing.id,
         type: listing.type as 'book' | 'clothing',
         userId: listing.user_id,
-        username: (listing.profiles as any)?.username || 'Unknown User',
+        username: listing.profiles?.username || 'Unknown',
         title: listing.title,
         author: listing.author || '',
         brand: listing.brand || '',
@@ -46,8 +51,6 @@ export const useListings = () => {
       setListings(formattedListings);
     } catch (error) {
       console.error('Error loading listings:', error);
-      // Set empty array on error to prevent undefined state
-      setListings([]);
     } finally {
       setLoading(false);
     }
