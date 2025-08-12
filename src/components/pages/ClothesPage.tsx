@@ -31,7 +31,7 @@ const ClothesPage: React.FC = () => {
           <Shirt className="w-8 h-8 text-white" />
         </div>
         <h1 className="text-2xl font-bold text-gray-800 mb-2">Fashion Exchange</h1>
-        <p className="text-gray-600">Discover clothes to trade, rent, or get for free</p>
+        <p className="text-gray-600">Find your perfect style match</p>
       </div>
 
       {/* Search and Filter */}

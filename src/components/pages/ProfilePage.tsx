@@ -142,9 +142,9 @@ const ProfilePage: React.FC = () => {
 
       {/* App Info */}
       <div className="bg-gradient-to-r from-pink-100 to-purple-100 rounded-2xl p-6 border border-pink-200 text-center">
-        <div className="text-3xl mb-2">🛍️</div>
-        <p className="text-gray-700 text-sm font-medium">Trade Hub v1.0</p>
-        <p className="text-gray-600 text-xs mt-1">Connecting traders worldwide</p>
+        <div className="text-3xl mb-2">💖</div>
+        <p className="text-gray-700 text-sm font-medium">Kawaii Trade v1.0</p>
+        <p className="text-gray-600 text-xs mt-1">Made with love for the community</p>
       </div>
     </div>
   );

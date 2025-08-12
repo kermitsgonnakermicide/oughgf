@@ -53,7 +53,7 @@ const MessagesPage: React.FC = () => {
           <MessageCircle className="w-8 h-8 text-white" />
         </div>
         <h1 className="text-2xl font-bold text-gray-800 mb-2">Messages & Trades</h1>
-        <p className="text-gray-600">Manage your trade proposals and messages</p>
+        <p className="text-gray-600">Manage your trade proposals</p>
       </div>
 
       {/* Incoming Proposals */}

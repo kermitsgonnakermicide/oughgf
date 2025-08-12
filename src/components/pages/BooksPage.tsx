@@ -31,7 +31,7 @@ const BooksPage: React.FC = () => {
           <Book className="w-8 h-8 text-white" />
         </div>
         <h1 className="text-2xl font-bold text-gray-800 mb-2">Book Library</h1>
-        <p className="text-gray-600">Find books to trade, rent, or get for free</p>
+        <p className="text-gray-600">Discover your next favorite read</p>
       </div>
 
       {/* Search and Filter */}
